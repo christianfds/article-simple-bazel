@@ -1,0 +1,26 @@
+load("@python_external_deps//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_binary")
+
+py_binary(
+    name = "binary",
+    srcs = [
+        "main.py",
+    ],
+    main = "main.py",
+    deps = [
+        "//libs/complex_calculations",
+        "//libs/logging_utils",
+        requirement("flask"),
+    ],
+)
+
+py_test(
+    name = "test",
+    srcs = glob([
+        "tests/**/*.py",
+    ]),
+    main = "tests/test.py",
+    deps = [
+        ":binary",
+    ],
+)
